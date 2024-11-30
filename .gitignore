@@ -364,3 +364,6 @@ FodyWeavers.xsd
 
 .idea/
 /MMEmergencyCall.Api/appsettings.json
+
+.env
+

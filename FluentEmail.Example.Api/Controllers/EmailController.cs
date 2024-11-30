@@ -75,8 +75,8 @@ public class EmailController : ControllerBase
     [HttpGet("multipleEmails")]
     public async Task<IActionResult> SendMultipleEmails()
     {
-        List<User> users = new()
-        {
+        List<User> users =
+        [
             new User()
             {
                 Email = "linthithtwe@gmail.com",
@@ -89,7 +89,7 @@ public class EmailController : ControllerBase
                  Name = "Htwe",
                  MemberType = "Basic"
             }
-        };
+        ];
 
         List<EmailMetadata> emailMetadatas = new();
 
@@ -101,6 +101,14 @@ public class EmailController : ControllerBase
         }
 
         await _emailService.SendMultiple(emailMetadatas);
+
+        return Ok();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> SendEmailPost(EmailMetadata emailMetadata)
+    {
+        await _emailService.Send(emailMetadata);
 
         return Ok();
     }
