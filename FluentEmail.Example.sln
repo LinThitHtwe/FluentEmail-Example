@@ -5,6 +5,10 @@ VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentEmail.Example.Api", "FluentEmail.Example.Api\FluentEmail.Example.Api.csproj", "{6CE69975-4696-4F44-A461-E68116B0E5E6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentEmail.Example.Services", "FluentEmail.Example.Services\FluentEmail.Example.Services.csproj", "{2996040A-A18E-4C78-BD15-C17EA2704E79}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentEmail.Example.Models", "FluentEmail.Example.Models\FluentEmail.Example.Models.csproj", "{C40224DF-30BB-4174-915E-E0D6DE182258}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{6CE69975-4696-4F44-A461-E68116B0E5E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6CE69975-4696-4F44-A461-E68116B0E5E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6CE69975-4696-4F44-A461-E68116B0E5E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2996040A-A18E-4C78-BD15-C17EA2704E79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2996040A-A18E-4C78-BD15-C17EA2704E79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2996040A-A18E-4C78-BD15-C17EA2704E79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2996040A-A18E-4C78-BD15-C17EA2704E79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C40224DF-30BB-4174-915E-E0D6DE182258}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C40224DF-30BB-4174-915E-E0D6DE182258}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C40224DF-30BB-4174-915E-E0D6DE182258}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C40224DF-30BB-4174-915E-E0D6DE182258}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

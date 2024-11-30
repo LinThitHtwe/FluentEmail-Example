@@ -14,4 +14,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FluentEmail.Example.Models\FluentEmail.Example.Models.csproj" />
+    <ProjectReference Include="..\FluentEmail.Example.Services\FluentEmail.Example.Services.csproj" />
+  </ItemGroup>
+
 </Project>
