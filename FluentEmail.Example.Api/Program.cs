@@ -1,5 +1,6 @@
-using FluentEmail.Example.Api.Services;
+//using FluentEmail.Example.Api.Services;
 using FluentEmail.Example.Services.Features.Extentions;
+using FluentEmail.Example.Services.Features.SendMail;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -7,7 +8,8 @@ using Microsoft.Extensions.Hosting;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddFluentEmail();
-builder.Services.AddScoped<IEmailService,EmailService>();
+//builder.Services.AddScoped<IEmailService,EmailService>();
+builder.AddSendMailExtentions();
 
 
 

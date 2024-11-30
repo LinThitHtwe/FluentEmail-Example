@@ -12,4 +12,8 @@
 		<PackageReference Include="FluentEmail.Razor" Version="3.0.2" />
 		<PackageReference Include="FluentEmail.Smtp" Version="3.0.2" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\FluentEmail.Example.Models\FluentEmail.Example.Models.csproj" />
+	</ItemGroup>
 </Project>

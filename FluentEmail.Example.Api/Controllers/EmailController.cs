@@ -1,5 +1,5 @@
-﻿using FluentEmail.Example.Api.Models;
-using FluentEmail.Example.Api.Services;
+﻿using FluentEmail.Example.Models;
+using FluentEmail.Example.Services.Features.SendMail;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.IO;
@@ -11,105 +11,107 @@ namespace FluentEmail.Example.Api.Controllers;
 [ApiController]
 public class EmailController : ControllerBase
 {
-    private readonly IEmailService _emailService;
+    private readonly SendMailService _sendMailService;
 
-    public EmailController(IEmailService emailService)
+    public EmailController(SendMailService sendMailService)
     {
-        _emailService = emailService;
+        _sendMailService = sendMailService;
     }
 
     [HttpGet("singleEmail")]
     public async Task<IActionResult> SendSingleEmail()
     {
-        EmailMetadata emailMetadata = new(
-            "linthit2745@gmail.com",
-            "Testing Mail",
-            "Just a test body",
-            "Nothing"
-        );
-
-        await _emailService.Send(emailMetadata);
-
-        return Ok();
-    }
-
-    [HttpGet("razorTemplateFromFile")]
-    public async Task<IActionResult> SendEmailWithRazorTemplateFromFile()
-    {
-        var user = new User()
+        EmailRequestModel emailRequestModel = new()
         {
-            Name = "Lin Thit",
-            Email = "linthit2745@gmail.com",
-            MemberType = "Pro"
+            ToEmail = "nawcharity173@gmail.com",
+            Subject="Chit kyoung",
+            Body = "Chit tae a kyoung yay htr tae Body lay pr",
+
+            //CC = ["linthithtwe@outlook.com"]
         };
 
-        EmailMetadata emailMetadata = new(
-           "linthit2745@gmail.com",
-           "Testing Mail",
-           "Just a test body",
-           "Nothing"
-        );
-
-        var templateFile = $"{Directory.GetCurrentDirectory()}/EmailTemplate.cshtml";
-
-        await _emailService.SendUsingTemplate(emailMetadata, user, templateFile);
+        await _sendMailService.Send(emailRequestModel);
 
         return Ok();
     }
 
-    [HttpGet("withAttachment")]
-    public async Task<IActionResult> SendEmailWithAttachment()
-    {
-        EmailMetadata emailMetadata = new(
-           "linthit2745@gmail.com",
-           "Testing Mail with attachment",
-           "Just a test body",
-           $"{Directory.GetCurrentDirectory()}/Test.txt"
-        );
+    //[HttpGet("razorTemplateFromFile")]
+    //public async Task<IActionResult> SendEmailWithRazorTemplateFromFile()
+    //{
+    //    var user = new User()
+    //    {
+    //        Name = "Lin Thit",
+    //        Email = "linthit2745@gmail.com",
+    //        MemberType = "Pro"
+    //    };
 
-        await _emailService.SendWithAttachment(emailMetadata);
+    //    EmailMetadata emailMetadata = new(
+    //       "linthit2745@gmail.com",
+    //       "Testing Mail",
+    //       "Just a test body",
+    //       "Nothing"
+    //    );
 
-        return Ok();
-    }
+    //    var templateFile = $"{Directory.GetCurrentDirectory()}/EmailTemplate.cshtml";
 
-    [HttpGet("multipleEmails")]
-    public async Task<IActionResult> SendMultipleEmails()
-    {
-        List<User> users =
-        [
-            new User()
-            {
-                Email = "linthithtwe@gmail.com",
-                 Name = "LinThitHtwe",
-                 MemberType = "Pro"
-            },
-            new User()
-            {
-                Email = "htwe@gmail.com",
-                 Name = "Htwe",
-                 MemberType = "Basic"
-            }
-        ];
+    //    await _emailService.SendUsingTemplate(emailMetadata, user, templateFile);
 
-        List<EmailMetadata> emailMetadatas = new();
+    //    return Ok();
+    //}
 
-        foreach(var user in users)
-        {
-            EmailMetadata emailMetadata = new
-                (user.Email, "Multiple Email","Body","None");
-            emailMetadatas.Add(emailMetadata);
-        }
+    //[HttpGet("withAttachment")]
+    //public async Task<IActionResult> SendEmailWithAttachment()
+    //{
+    //    EmailMetadata emailMetadata = new(
+    //       "linthit2745@gmail.com",
+    //       "Testing Mail with attachment",
+    //       "Just a test body",
+    //       $"{Directory.GetCurrentDirectory()}/Test.txt"
+    //    );
 
-        await _emailService.SendMultiple(emailMetadatas);
+    //    await _emailService.SendWithAttachment(emailMetadata);
 
-        return Ok();
-    }
+    //    return Ok();
+    //}
 
-    [HttpPost]
-    public async Task<IActionResult> SendEmailPost(EmailMetadata emailMetadata)
-    {
-        await _emailService.Send(emailMetadata);
+    //[HttpGet("multipleEmails")]
+    //public async Task<IActionResult> SendMultipleEmails()
+    //{
+    //    List<User> users =
+    //    [
+    //        new User()
+    //        {
+    //            Email = "linthithtwe@gmail.com",
+    //             Name = "LinThitHtwe",
+    //             MemberType = "Pro"
+    //        },
+    //        new User()
+    //        {
+    //            Email = "htwe@gmail.com",
+    //             Name = "Htwe",
+    //             MemberType = "Basic"
+    //        }
+    //    ];
 
-        return Ok();
-    }
+    //    List<EmailMetadata> emailMetadatas = new();
+
+    //    foreach(var user in users)
+    //    {
+    //        EmailMetadata emailMetadata = new
+    //            (user.Email, "Multiple Email","Body","None");
+    //        emailMetadatas.Add(emailMetadata);
+    //    }
+
+    //    await _emailService.SendMultiple(emailMetadatas);
+
+    //    return Ok();
+    //}
+
+    //[HttpPost]
+    //public async Task<IActionResult> SendEmailPost(EmailMetadata emailMetadata)
+    //{
+    //    await _emailService.Send(emailMetadata);
+
+    //    return Ok();
+    //}
 }
