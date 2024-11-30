@@ -53,27 +53,46 @@ public class SendMailService
         await email.SendAsync();
     }
 
-    public async Task SendMailWithTemplate(EmailRequestModel emailRequestModel)
+    public async Task SendMultipleMails(MultipleEmailRequestModel multipleEmailRequestModel)
     {
-        var email = _fluentEmail.To(emailRequestModel.ToEmail)
-                             .Subject(emailRequestModel.Subject)
-                             .Body(emailRequestModel.Body);
-
-        if (emailRequestModel.CC is not null && emailRequestModel.CC.Length > 0)
+        foreach (var toEmail in multipleEmailRequestModel.ToEmails)
         {
-            email = email.CC(string.Join(",", emailRequestModel.CC));
-        }
+            var email = _fluentEmailFactory
+                .Create()
+                .To(toEmail)
+                .Subject(multipleEmailRequestModel.Subject)
+                .Body(multipleEmailRequestModel.Body);
 
-        if (emailRequestModel.BCC is not null && emailRequestModel.BCC.Length > 0)
-        {
-            email = email.BCC(string.Join(",", emailRequestModel.BCC));
-        }
+            if (multipleEmailRequestModel.CC is not null && multipleEmailRequestModel.CC.Length > 0)
+            {
+                email = email.CC(string.Join(",", multipleEmailRequestModel.CC));
+            }
 
-        if (emailRequestModel.IsUseTemplate)
-        {
-            email = email.UsingTemplateFromFile($"{Directory.GetCurrentDirectory()}/EmailTemplate.cshtml", new { });
-        }
+            if (multipleEmailRequestModel.BCC is not null && multipleEmailRequestModel.BCC.Length > 0)
+            {
+                email = email.BCC(string.Join(",", multipleEmailRequestModel.BCC));
+            }
 
-        await email.SendAsync();
+            if (multipleEmailRequestModel.IsUseTemplate)
+            {
+                email = email.UsingTemplateFromFile($"{Directory.GetCurrentDirectory()}/EmailTemplate.cshtml", multipleEmailRequestModel);
+            }
+
+            if (multipleEmailRequestModel.Attachments is not null && multipleEmailRequestModel.Attachments.Count > 0)
+            {
+                foreach (var attachment in multipleEmailRequestModel.Attachments)
+                {
+                    var fileBytes = Convert.FromBase64String(attachment.Base64Content);
+                    email.Attach(new Attachment
+                    {
+                        Filename = attachment.FileName,
+                        Data = new MemoryStream(fileBytes),
+                        ContentType = attachment.ContentType
+                    });
+                }
+            }
+
+            await email.SendAsync();
+        }
     }
 }

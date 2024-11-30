@@ -2,8 +2,6 @@
 using FluentEmail.Example.Services.Features.SendMail;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
 
 namespace FluentEmail.Example.Api.Controllers;
@@ -19,40 +17,8 @@ public class EmailController : ControllerBase
         _sendMailService = sendMailService;
     }
 
-    [HttpGet("singleEmail")]
-    public async Task<IActionResult> SendSingleEmail()
-    {
-        EmailRequestModel emailRequestModel = new()
-        {
-            ToEmail = "linthit2745@gmail.com",
-            Subject="Test",
-            Body = "TestBody",
-            IsUseTemplate = true,
-            //CC = ["linthithtwe@outlook.com"]
-        };
-
-        await _sendMailService.Send(emailRequestModel);
-
-        return Ok();
-    }
-
     [HttpPost("SendMail")]
     public async Task<IActionResult> SendMail([FromBody] EmailRequestModel emailRequestModel)
-    {
-
-        try
-        {
-            await _sendMailService.Send(emailRequestModel);
-            return Ok();
-        }
-        catch(Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
-    }
-
-    [HttpPost("SendMailWithTemplate")]
-    public async Task<IActionResult> SendMailWithTemplate([FromBody] EmailRequestModel emailRequestModel)
     {
 
         try
@@ -65,6 +31,42 @@ public class EmailController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
+
+    [HttpPost("SendMultipleMails")]
+    public async Task<IActionResult> SendMultipleMails([FromBody] MultipleEmailRequestModel multipleEmailRequestModel)
+    {
+
+        try
+        {
+            await _sendMailService.SendMultipleMails(multipleEmailRequestModel);
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    #region ununsed codes
+
+    //[HttpGet("singleEmail")]
+    //public async Task<IActionResult> SendSingleEmail()
+    //{
+    //    EmailRequestModel emailRequestModel = new()
+    //    {
+    //        ToEmail = "linthit2745@gmail.com",
+    //        Subject="Test",
+    //        Body = "TestBody",
+    //        IsUseTemplate = true,
+    //        //CC = ["linthithtwe@outlook.com"]
+    //    };
+
+    //    await _sendMailService.Send(emailRequestModel);
+
+    //    return Ok();
+    //}
+
+
 
 
 
@@ -147,4 +149,6 @@ public class EmailController : ControllerBase
 
     //    return Ok();
     //}
+
+    #endregion
 }

@@ -9,6 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentEmail.Example.Service
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentEmail.Example.Models", "FluentEmail.Example.Models\FluentEmail.Example.Models.csproj", "{C40224DF-30BB-4174-915E-E0D6DE182258}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{E020E9A7-C0DE-43D8-8887-C3E021D7E524}"
+	ProjectSection(SolutionItems) = preProject
+		FluentEmail.Example.postman_collection.json = FluentEmail.Example.postman_collection.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
