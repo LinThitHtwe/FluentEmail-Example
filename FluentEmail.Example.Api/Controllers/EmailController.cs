@@ -1,6 +1,7 @@
 ﻿using FluentEmail.Example.Models;
 using FluentEmail.Example.Services.Features.SendMail;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -23,10 +24,10 @@ public class EmailController : ControllerBase
     {
         EmailRequestModel emailRequestModel = new()
         {
-            ToEmail = "nawcharity173@gmail.com",
-            Subject="Chit kyoung",
-            Body = "Chit tae a kyoung yay htr tae Body lay pr",
-
+            ToEmail = "linthit2745@gmail.com",
+            Subject="Test",
+            Body = "TestBody",
+            IsUseTemplate = true,
             //CC = ["linthithtwe@outlook.com"]
         };
 
@@ -34,6 +35,38 @@ public class EmailController : ControllerBase
 
         return Ok();
     }
+
+    [HttpPost("SendMail")]
+    public async Task<IActionResult> SendMail([FromBody] EmailRequestModel emailRequestModel)
+    {
+
+        try
+        {
+            await _sendMailService.Send(emailRequestModel);
+            return Ok();
+        }
+        catch(Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpPost("SendMailWithTemplate")]
+    public async Task<IActionResult> SendMailWithTemplate([FromBody] EmailRequestModel emailRequestModel)
+    {
+
+        try
+        {
+            await _sendMailService.Send(emailRequestModel);
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+
 
     //[HttpGet("razorTemplateFromFile")]
     //public async Task<IActionResult> SendEmailWithRazorTemplateFromFile()
