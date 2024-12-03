@@ -10,7 +10,7 @@ This repository is an example for sending emails using the [FluentEmail](https:/
 
 **Clone the Repository**:
    ```bash
-   git clone https://github.com/your-username/FluentEmailExample.git
+   git clone https://github.com/LinThitHtwe/FluentEmailExample.git
    ```
 
 **Configure Environment Variables**: Add environment variables in a ```.env``` file inside ```FluentEmail.Example.Api``` project:
